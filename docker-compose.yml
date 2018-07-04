@@ -1,0 +1,25 @@
+
+version: '2.1'
+services:
+  #docker-compose build image
+  image:
+    build:
+      context: image
+      dockerfile: Dockerfile
+      args:
+      #- IMAGE_ARG_APT_MIRROR=${IMAGE_ARG_APT_MIRROR}
+      - IMAGE_ARG_APT_MIRROR=${IMAGE_ARG_APT_MIRROR:-mirrors.163.com}
+      - IMAGE_ARG_RUBY_VERSION=${IMAGE_ARG_RUBY_VERSION:-2.4.1}
+    image: ${IMAGE_PREFIX:-cirepo}/${IMAGE_NAME:-bionic-rvm-ruby}:${IMAGE_TAG:-2.4.1}
+  #docker-compose build dumper
+  dumper:
+    build:
+      context: dumper
+      dockerfile: Dockerfile_dumper
+    image: tmp/dumper:latest
+  #docker-compose build archive
+  archive:
+    build:
+      context: .
+      dockerfile: Dockerfile_archive
+    image: ${IMAGE_PREFIX:-cirepo}/${IMAGE_NAME:-bionic-rvm-ruby}:${IMAGE_TAG:-2.4.1}-archive
