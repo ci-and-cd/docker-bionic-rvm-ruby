@@ -9,7 +9,8 @@ Dockerfile [ci-and-cd/docker-bionic-rvm-ruby on Github](https://github.com/ci-an
 ## Use this image as a “stage” in multi-stage builds
 
 ```dockerfile
-FROM alpine:3.7
+
+FROM ubuntu:18.04
 COPY --from=cirepo/bionic-rvm-ruby:2.4.1-archive /data/root /
 RUN sudo chown -R $(whoami):$(id -gn) /home/$(whoami) \
   && sudo apt-get -y install autoconf automake gawk g++ gcc make patch pkg-config \
@@ -45,4 +46,5 @@ export PATH="$PATH:$HOME/.rvm/bin"\
 \
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*\
 ' >> /home/$(whoami)/.profile
+
 ```
