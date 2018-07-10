@@ -19,7 +19,7 @@ if [[ "$(docker images -q ${IMAGE_PREFIX}/${IMAGE_NAME}:${IMAGE_TAG} 2> /dev/nul
     docker-compose build image
 fi
 
-## Build dumper image
+# Build dumper image
 docker save ${IMAGE_PREFIX}/${IMAGE_NAME}:${IMAGE_TAG} > dumper/docker/image.tar
 docker-compose build dumper
 docker rm -fv broken_files || echo 'container broken_files not exists'
@@ -27,7 +27,7 @@ docker run --name broken_files tmp/dumper:latest /home/ubuntu/data/broken_files.
 docker commit broken_files tmp/dumper:latest
 docker rm -fv broken_files
 
-## Build archive image
+# Build archive image
 docker-compose build archive
 
 docker-compose push image
