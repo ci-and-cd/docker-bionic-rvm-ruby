@@ -4,14 +4,14 @@ Ruby (rvm) for multi-stage docker image build.
 
 Dockerfile [ci-and-cd/docker-bionic-rvm-ruby on Github](https://github.com/ci-and-cd/docker-bionic-rvm-ruby)
 
-[cirepo/bionic-rvm-ruby on Docker Hub](https://hub.docker.com/r/cirepo/bionic-rvm-ruby/)
+[cirepo/rvm-ruby on Docker Hub](https://hub.docker.com/r/cirepo/rvm-ruby/)
 
 ## Use this image as a “stage” in multi-stage builds
 
 ```dockerfile
 
 FROM ubuntu:18.04
-COPY --from=cirepo/bionic-rvm-ruby:2.4.1-archive /data/root /
+COPY --from=cirepo/rvm-ruby:2.4.1-bionic-archive /data/root /
 RUN sudo chown -R $(whoami):$(id -gn) /home/$(whoami) \
   && sudo apt-get -y install autoconf automake gawk g++ gcc make patch pkg-config \
   && sudo apt-get -y install libc6-dev libffi-dev libgdbm-dev libgmp-dev libncurses5-dev libsqlite3-dev libssl-dev libyaml-dev zlib1g-dev \
