@@ -37,8 +37,8 @@ RUN set -ex \
      done \
   && gpg --keyserver hkp://keys.gnupg.net --recv-keys \
   && curl -L https://get.rvm.io | bash -s stable --auto-dotfiles \
-  && touch ~/.bash_profile \
-  && echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bash_profile \
+  && touch ~/.profile \
+  && echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' | tee -a ~/.profile \
   && if [ -f /data/ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2 ]; then cp -f /data/ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2 ~/.rvm/archives/; fi \
   && ls -la ~/.rvm/archives \
   && if [ ! -f ~/.rvm/archives/ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2 ]; then ${ARIA2C_DOWNLOAD} -d ~/.rvm/archives -o ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2 https://cache.ruby-lang.org/pub/ruby/$(echo ${IMAGE_ARG_RUBY_VERSION:-2.4.1} | sed 's/\.[^.]*$//')/ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2; fi \
@@ -67,8 +67,8 @@ RUN set -ex \
 #      done \
 #    && gpg --keyserver hkp://keys.gnupg.net --recv-keys \
 #    && curl -L https://get.rvm.io | bash -s stable --auto-dotfiles \
-#    && touch ~/.bash_profile \
-#    && echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bash_profile \
+#    && touch ~/.profile \
+#    && echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.profile \
 #    && /bin/bash --login -c "rvm install ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1} && rvm use ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1} --default && ruby -v" \
 #    && apt-get -q autoremove \
 #    && apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin

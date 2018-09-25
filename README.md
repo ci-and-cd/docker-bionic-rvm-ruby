@@ -34,11 +34,6 @@ export PATH="$PATH:$HOME/.rvm/bin"\
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.\
 export PATH="$PATH:$HOME/.rvm/bin"\
 ' >> /home/$(whoami)/.bashrc \
-  && touch /home/$(whoami)/.bash_profile \
-  && echo '\
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*\
-[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"\
-' >> /home/$(whoami)/.bash_profile \
   && touch /home/$(whoami)/.profile \
   && echo '\
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.\
