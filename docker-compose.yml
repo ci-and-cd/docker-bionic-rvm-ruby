@@ -10,7 +10,7 @@ services:
       #- IMAGE_ARG_APT_MIRROR=${IMAGE_ARG_APT_MIRROR}
       - IMAGE_ARG_APT_MIRROR=${IMAGE_ARG_APT_MIRROR:-mirrors.163.com}
       - IMAGE_ARG_RUBY_VERSION=${IMAGE_ARG_RUBY_VERSION:-2.4.1}
-    image: ${IMAGE_PREFIX:-cirepo}/${IMAGE_NAME:-rvm-ruby}:${IMAGE_TAG:-2.4.1-bionic}
+    image: ${IMAGE_PREFIX:-cirepo/}${IMAGE_NAME:-rvm-ruby}:${IMAGE_TAG:-2.4.1-bionic}
   #docker-compose build dumper
   dumper:
     build:
@@ -22,4 +22,4 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_archive
-    image: ${IMAGE_PREFIX:-cirepo}/${IMAGE_NAME:-rvm-ruby}:${IMAGE_TAG:-2.4.1-bionic}-archive
+    image: ${IMAGE_PREFIX:-cirepo/}${IMAGE_NAME:-rvm-ruby}:${IMAGE_TAG:-2.4.1-bionic}-archive
