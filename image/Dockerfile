@@ -1,5 +1,5 @@
 
-FROM cirepo/nix:2.1.1-bionic
+FROM cirepo/nix:2.2.1-bionic
 
 
 ARG IMAGE_ARG_APT_MIRROR
@@ -38,11 +38,12 @@ RUN set -ex \
   && gpg --keyserver hkp://keys.gnupg.net --recv-keys \
   && curl -L https://get.rvm.io | bash -s stable --auto-dotfiles \
   && touch ~/.profile \
+  && RUBY_ARCH=ruby-${IMAGE_ARG_RUBY_VERSION:-2.6.1}.tar.bz2 \
   && echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' | tee -a ~/.profile \
-  && if [ -f /data/ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2 ]; then cp -f /data/ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2 ~/.rvm/archives/; fi \
+  && if [ -f /data/${RUBY_ARCH} ]; then cp -f /data/${RUBY_ARCH} ~/.rvm/archives/; fi \
   && ls -la ~/.rvm/archives \
-  && if [ ! -f ~/.rvm/archives/ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2 ]; then ${ARIA2C_DOWNLOAD} -d ~/.rvm/archives -o ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2 https://cache.ruby-lang.org/pub/ruby/$(echo ${IMAGE_ARG_RUBY_VERSION:-2.4.1} | sed 's/\.[^.]*$//')/ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1}.tar.bz2; fi \
-  && /bin/bash --login -c "rvm install ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1} && rvm use ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1} --default && ruby -v" \
+  && if [ ! -f ~/.rvm/archives/${RUBY_ARCH} ]; then ${ARIA2C_DOWNLOAD} -d ~/.rvm/archives -o ${RUBY_ARCH} https://cache.ruby-lang.org/pub/ruby/$(echo ${IMAGE_ARG_RUBY_VERSION:-2.6.1} | sed 's/\.[^.]*$//')/${RUBY_ARCH}; fi \
+  && /bin/bash --login -c "rvm install ruby-${IMAGE_ARG_RUBY_VERSION:-2.6.1} && rvm use ruby-${IMAGE_ARG_RUBY_VERSION:-2.6.1} --default && ruby -v" \
   && echo "cleanup" \
   && sudo apt-get -y remove autoconf automake gawk g++ gcc make patch pkg-config \
   && sudo apt-get -y remove libc6-dev libffi-dev libgdbm-dev libgmp-dev libncurses5-dev libsqlite3-dev libssl-dev libyaml-dev zlib1g-dev \
@@ -69,6 +70,6 @@ RUN set -ex \
 #    && curl -L https://get.rvm.io | bash -s stable --auto-dotfiles \
 #    && touch ~/.profile \
 #    && echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.profile \
-#    && /bin/bash --login -c "rvm install ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1} && rvm use ruby-${IMAGE_ARG_RUBY_VERSION:-2.4.1} --default && ruby -v" \
+#    && /bin/bash --login -c "rvm install ruby-${IMAGE_ARG_RUBY_VERSION:-2.6.1} && rvm use ruby-${IMAGE_ARG_RUBY_VERSION:-2.6.1} --default && ruby -v" \
 #    && apt-get -q autoremove \
 #    && apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin

@@ -14,8 +14,8 @@ env:
   global:
   - IMAGE_ARG_APT_MIRROR=archive.ubuntu.com
   matrix:
-  - IMAGE_ARG_RUBY_VERSION=2.4.1
-  - IMAGE_ARG_RUBY_VERSION=2.5.1
+  - IMAGE_ARG_RUBY_VERSION=2.6.1
+  - IMAGE_ARG_RUBY_VERSION=2.5.3
 
 group: edge
 #install: true

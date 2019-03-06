@@ -11,7 +11,7 @@ Dockerfile [ci-and-cd/docker-bionic-rvm-ruby on Github](https://github.com/ci-an
 ```dockerfile
 
 FROM ubuntu:18.04
-COPY --from=cirepo/rvm-ruby:2.4.1-bionic-archive /data/root /
+COPY --from=cirepo/rvm-ruby:2.6.1-bionic-archive /data/root /
 RUN sudo chown -R $(whoami):$(id -gn) /home/$(whoami) \
   && sudo apt-get -y install autoconf automake gawk g++ gcc make patch pkg-config \
   && sudo apt-get -y install libc6-dev libffi-dev libgdbm-dev libgmp-dev libncurses5-dev libsqlite3-dev libssl-dev libyaml-dev zlib1g-dev \
